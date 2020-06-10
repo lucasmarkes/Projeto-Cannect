@@ -7,6 +7,8 @@ STS_caneca = {1: "Clean", 2: "Clean", 3: "Clean", 4: "Clean", 5: "Clean", 6: "Cl
               17: "Clean", 18: "Clean", 19: "Clean", 20: "Clean"}
 
 
+
+
 def pontuacao_time():
     soma_time_1 = 0
     soma_time_2 = 0
