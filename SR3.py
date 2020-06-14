@@ -7,8 +7,6 @@ STS_caneca = {1: "Clean", 2: "Clean", 3: "Clean", 4: "Clean", 5: "Clean", 6: "Cl
               17: "Clean", 18: "Clean", 19: "Clean", 20: "Clean"}
 
 
-
-
 def pontuacao_time():
     soma_time_1 = 0
     soma_time_2 = 0
@@ -41,35 +39,43 @@ def mostrar_perfil():
     print("ID: {}".format(ID))
     print("Time: {}".format(registros[ID][1]))
     print("CP: {}".format(registros[ID][2]))
+    print("XP: {}".format(registros[ID][4]))
     print("=-" * 30)
 
 
-def atrib_pont_penalidade():
-    CP = -50
-    registros[ID][2] = registros[ID][2] + CP
+def atrib_pont_XP_penalidade():
+    cp = -50
+    registros[ID][2] = registros[ID][2] + cp
+    xp = -50
+    registros[ID][4] = registros[ID][4] + xp
 
 
-def atrib_pont_devolucao():
-    CP = 100
-    registros[ID][2] = registros[ID][2] + CP
+def atrib_pont_XP_devolucao():
+    cp = 100
+    xp = 100
+
+    registros[ID][4] = registros[ID][4] + xp
+    registros[ID][2] = registros[ID][2] + cp
 
 
-def atrib_pont_report():
-    CP = 50
-    registros[ID][2] = registros[ID][2] + CP
+def atrib_pont_XP_report():
+    cp = 50
+    xp = 100
+    registros[ID][4] = registros[ID][4] + xp
+    registros[ID][2] = registros[ID][2] + cp
 
 
 while opcao != -1:
 
     # INTRODUÇÃO
-
-    print("BEM VINDO AO CANNECT")
+    print("\n" * 2)
     print("=-" * 30)
-    print("Escolha uma das opções abaixo")
-    print("1 - CANNECTAR")
+    print("|", " " * 16, "BEM VINDO AO CANNECT", " " * 17, "|")
+    print("=-" * 30)
+    print("\n1 - CANNECTAR")
     print("2 - Informações")
     print("3 - Registrar Usuário")
-    print("-1 - Para finalizar o programa")
+    print("-1 - Para finalizar o programa\n")
     # Para teste : 4 - CONSULTAR DICIONARIO
     # '''  ''''' : 5 - ADICIONAR CANECAS
 
@@ -78,7 +84,10 @@ while opcao != -1:
     if opcao == 1:
 
         # AREA DE LOGIN
-
+        print("\n" * 2)
+        print("=-" * 30)
+        print("|", " " * 21, "CANNECTE-SE", " " * 21, "|")
+        print("=-" * 30)
         ID = input("\nDigite seu ID para CANNECTAR: ")
         opcao_log = 0
         while opcao_log != -1:
@@ -168,17 +177,17 @@ while opcao != -1:
 
                     if opcao_devolucao == 1:
                         print("Obrigado por devolver e lavar a caneca")
-                        print("Você recebeu 100 CP pela sua boa conduta")
+                        print("Você recebeu 100 CP/XP pela sua boa conduta")
                         registros[ID][3] = 0
                         STS_caneca[n_caneca] = "Clean"
-                        atrib_pont_devolucao()
+                        atrib_pont_XP_devolucao()
 
                     if opcao_devolucao == 2:
                         print("Que pena :(, você não pôde lavar a caneca, por favor, deixe-a no devido lugar")
-                        print("Infelizmente você perderá 50 CP por isso")
+                        print("Infelizmente você perderá 50 CP/XP por isso")
                         registros[ID][3] = 0
                         STS_caneca[n_caneca] = "Suja"
-                        atrib_pont_penalidade()
+                        atrib_pont_XP_penalidade()
 
                 # OPCAO 3 --- REPORTAR CANECA
 
@@ -202,7 +211,7 @@ while opcao != -1:
                             print("O CANNECT agradece o seu report :D")
                             print("{}, você recebeu 50 CP pelo report".format(nome_login))
 
-                            atrib_pont_report()
+                            atrib_pont_XP_report()
 
                         if opcao_report == 2:
                             n_caneca = int(input("Digite a numeração de caneca que deseja reportar: "))
@@ -210,14 +219,14 @@ while opcao != -1:
                             print("{}, você recebeu 50 CP pelo report".format(nome_login))
 
                             STS_caneca[n_caneca] = "Perdida"
-                            atrib_pont_report()
+                            atrib_pont_XP_report()
 
                         if opcao_report == 3:
                             n_caneca = int(input("Digite a numeração de caneca que deseja reportar: "))
                             print("{}, você recebeu 50 CP pelo report".format(nome_login))
 
                             STS_caneca[n_caneca] = "Quebrada"
-                            atrib_pont_report()
+                            atrib_pont_XP_report()
 
                     # montar um dicionario para verificar o status da caneca (se esta suja, limpa, suja ou quebrada)
                     # se a caneca nunca foi reportada ela é dada como limpa
@@ -264,13 +273,17 @@ while opcao != -1:
 
     # 3 CONCLUIDO
     elif opcao == 3:
-
+        print("\n" * 2)
+        print("=-" * 30)
+        print("|", " " * 18, "ÁREA DE CADASTRO", " " * 19, "|")
+        print("=-" * 30)
         nome = input("Digite seu nome: ")
-        ID = input("Digite seu ID (será usado como login): ")
+        ID = input("Digite seu ID ou email CESAR (será usado como login): ")
         time = input("Qual seu time ? (Gato ou Cachorro): ")
 
         validacao_nome = nome.isalpha()  # verifica se apenas possui letras
         pontuacao = 0  # vai fazer parte dos dados dos usuários no dicionário, a partir da chave(ID)
+        XP = 0
         status = 0  # Sem caneca
         if not validacao_nome:
             print("O NOME DEVE HAVER APENAS CARACTERES, TENTE NOVAMENTE")
@@ -281,7 +294,7 @@ while opcao != -1:
             print("DIGITE UM TIME VÁLIDO, TENTE NOVAMENTE")
             time = input("Qual seu time ? (Gato ou Cachorro): ")
 
-        registros[ID] = [nome, time, pontuacao, status]
+        registros[ID] = [nome, time, pontuacao, status, XP]
 
         print("USUARIO REGISTRADO COM SUCESSO")
 
@@ -293,6 +306,7 @@ while opcao != -1:
         print("ADICIONAR CANECAS")
         adicionar_caneca()
 
+print("\n" * 2)
 print("=-" * 30)
-print("OBRIGADO PELA SUA PRESENÇA NO CANNECT :D")
+print("|", " " * 8, "OBRIGADO PELA SUA PRESENÇA NO CANNECT", " " * 8, "|")
 print("=-" * 30)
