@@ -46,10 +46,7 @@ def mostrar_perfil():
 def atrib_pont_XP_penalidade():
     cp = -50
     registros[ID][2] = registros[ID][2] + cp
-    xp = -50
-    registros[ID][4] = registros[ID][4] + xp
-
-
+   
 def atrib_pont_XP_devolucao():
     cp = 100
     xp = 100
@@ -79,7 +76,7 @@ while opcao != -1:
     # Para teste : 4 - CONSULTAR DICIONARIO
     # '''  ''''' : 5 - ADICIONAR CANECAS
 
-    opcao = int(input("Escolhe uma das opções acima: "))
+    opcao = int(input("Escolha uma das opções acima: "))
 
     if opcao == 1:
 
